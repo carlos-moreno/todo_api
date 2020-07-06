@@ -1,0 +1,54 @@
+from django.core.exceptions import ValidationError
+from django.test import TestCase
+
+from error_center.account.models import User
+
+
+class UserModelTest(TestCase):
+    def setUp(self) -> None:
+        self.user_common = User.objects.create_user(
+            first_name="Fulano",
+            last_name="de Tal",
+            email="fulano@xpto.com",
+            password="xpto123"
+        )
+        self.user_admin = User.objects.create_superuser(
+            first_name="Beltrano",
+            last_name="de Tal",
+            email="beltrano@xpto.com",
+            password="xpto123"
+        )
+
+    def test_create_user(self):
+        self.assertTrue(User.objects.exists())
+
+    def test_email_error(self):
+        user = User(
+            first_name="Ciclano",
+            last_name="de Tal",
+            email="ciclano",
+            password="xpto123"
+        )
+        self.assertRaises(ValidationError, user.full_clean)
+
+    def test_user_is_staff(self):
+        self.assertTrue(self.user_admin.is_staff)
+
+    def test_user_is_not_staff(self):
+        self.assertFalse(self.user_common.is_staff)
+
+    def test_full_name(self):
+        self.assertEqual(self.user_common.get_full_name(), "Fulano de Tal")
+        self.assertEqual(self.user_admin.get_full_name(), "Beltrano de Tal")
+
+    def test_short_name(self):
+        self.assertEqual(self.user_common.get_short_name(), "Fulano de")
+        self.assertEqual(self.user_admin.get_short_name(), "Beltrano de")
+
+    def test_str(self):
+        self.assertEqual(str(self.user_common), "Fulano de Tal")
+        self.assertEqual(str(self.user_admin), "Beltrano de Tal")
+
+    def test_get_user_by_email(self):
+        u = User.objects.get(email="fulano@xpto.com")
+        self.assertTrue(self.user_common, u)
