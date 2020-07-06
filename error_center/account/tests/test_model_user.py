@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from django.core import mail
 
 from error_center.account.models import User
 
@@ -60,3 +61,11 @@ class UserModelTest(TestCase):
         """Must return user by email"""
         u = User.objects.get(email="fulano@xpto.com")
         self.assertTrue(self.user_common, u)
+
+    def test_send_email(self):
+        self.user_common.email_user('Cadastro realizado com sucesso',
+                                    'O seu cadastro foi realizado com sucesso no sistema.',
+                                    'suporte@xpto.com',
+                                    fail_silently=False)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'Cadastro realizado com sucesso')
