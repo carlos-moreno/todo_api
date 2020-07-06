@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 
-from .account import views
+from .account.views import UserViewSet
+from .core.views import AgentViewSet, EventViewSet
 
 router = routers.DefaultRouter()
-router.register('users', views.UserViewSet)
+router.register('users', UserViewSet)
+router.register('agents', AgentViewSet)
+router.register('events', EventViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
