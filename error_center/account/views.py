@@ -6,12 +6,18 @@ from .serializers import UserSerializer, GroupSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    """Make doc here"""
-    queryset = User.objects.all().order_by('date_joined')
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+
+    queryset = User.objects.all().order_by("date_joined")
     serializer_class = UserSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):
-    """Make doc here"""
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
