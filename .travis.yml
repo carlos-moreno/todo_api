@@ -12,6 +12,8 @@ before_script:
   - cp contrib/env-sample .env
   - unset DATABASE_URL
   - export DATABASE_URL=postgres://postgres@localhost/travisci
+  - pip install pip -U
+  - pip install -r requirements-dev.txt
   - python manage.py migrate --noinput
 
 jobs:
