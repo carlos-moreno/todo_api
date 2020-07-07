@@ -3,9 +3,7 @@ from rest_framework import serializers
 from .models import Agent, Event
 
 
-class AgentSerializer(
-    serializers.HyperlinkedModelSerializer, serializers.ModelSerializer
-):
+class AgentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Agent
         fields = ["url", "name", "status", "environment", "version", "address"]
