@@ -1,7 +1,5 @@
-langueage: python
+language: python
 python:
-  - "3.6"
-  - "3.7"
   - "3.8"
 
 services:
@@ -12,12 +10,19 @@ before_script:
   - cp contrib/env-sample .env
   - unset DATABASE_URL
   - export DATABASE_URL=postgres://postgres@localhost/travisci
-  - pip install -U
+  - pip install pip -U
+  - pip install -r requirements.txt
   - python manage.py migrate --noinput
+
+stages:
+  - name: check
+  - name: tests
 
 jobs:
   include:
     - stage: check
+      name: checking application integrity
       script: python manage.py check
-    - stage: test
-      script: python manage.py tests
+    - stage: tests
+      name: testing the application
+      script: python manage.py test
