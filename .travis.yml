@@ -1,0 +1,23 @@
+langueage: python
+python:
+  - "3.6"
+  - "3.7"
+  - "3.8"
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c "CREATE DATABASE travisci;" -U postgres
+  - cp contrib/env-sample .env
+  - unset DATABASE_URL
+  - export DATABASE_URL=postgres://postgres@localhost/travisci
+  - pip install -U
+  - python manage.py migrate --noinput
+
+jobs:
+  include:
+    - stage: check
+      script: python manage.py check
+    - stage: test
+      script: python manage.py tests
