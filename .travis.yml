@@ -21,4 +21,4 @@ jobs:
     - stage: check
       script: python manage.py check
     - stage: test
-      script: python manage.py tests
+      script: python manage.py test
