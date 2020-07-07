@@ -1,5 +1,6 @@
 langueage: python
 python:
+  - "3.6"
   - "3.7"
   - "3.8"
 
@@ -11,7 +12,6 @@ before_script:
   - cp contrib/env-sample .env
   - unset DATABASE_URL
   - export DATABASE_URL=postgres://postgres@localhost/travisci
-  - pip install -U
   - python manage.py migrate --noinput
 
 jobs:
