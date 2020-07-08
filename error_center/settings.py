@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_swagger',
     'django_filters',
     'error_center.account',
@@ -133,9 +134,14 @@ EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 
 SWAGGER_SETTINGS = {
+    "USE_SESSION_AUTH": True,
     'JASON_EDITOR': True,
     'DOC_EXPANSION': 'list',
     'APIS_SORTER': 'alpha',
     'api_version': '1.0',
     'SUPPORTED_SUBMIT_METHODS': ['get', 'post', ],
+
 }
+
+LOGIN_URL = 'rest_framework:login'
+LOGOUT_URL = 'rest_framework:logout'
