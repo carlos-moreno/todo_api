@@ -18,9 +18,11 @@ from django.urls import path, include
 from rest_framework import routers
 
 from todo.account.views import UserViewSet
+from todo.core.views import TodoViewSet
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet)
+router.register('todos', TodoViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
