@@ -1,7 +1,7 @@
 import uuid
-from django.utils import timezone
 
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from todo.account.models import User
@@ -18,6 +18,7 @@ class Todo(models.Model):
 
     class Meta:
         db_table = "todo"
+        ordering = ("created_at",)
 
     def __str__(self):
         return f"{self.name}"
