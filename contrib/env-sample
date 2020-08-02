@@ -1,7 +1,6 @@
 SECRET_KEY=THIS_IS_SAMPLE
 DEBUG=True
 ALLOWED_HOSTS=127.0.0.1, .localhost, .herokuapp.com
-DATABASE_URL=postgres://error_center:error_center@localhost:5434/error_center
 
 EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
 EMAIL_HOST=localhost

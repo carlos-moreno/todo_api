@@ -1,0 +1,12 @@
+language: python
+python:
+  - '3.8'
+before_script:
+  - cp contrib/env-sample .env
+  - pip install pip -U
+  - pip install pipenv
+  - pipenv sync --dev
+  - export PIPENV_VENV_IN_PROJECT=1
+  - pipenv run python manage.py migrate --noinput
+script:
+  - pipenv run python manage.py test
