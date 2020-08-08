@@ -25,7 +25,9 @@ jobs:
       run: |
         cp contrib/env-sample .env
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -q pipenv
+        export PIPENV_VENV_IN_PROJECT=1
+        pipenv sync --dev
     - name: Run Tests
       run: |
-        python manage.py test
+        pipenv run python manage.py test
